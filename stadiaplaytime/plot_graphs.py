@@ -17,7 +17,7 @@ def make_graph_total_time(games_list):
     plt.xlabel('Games')
     plt.title('Total time per game')
 
-    plt.savefig('total_time.png')
+    plt.savefig('stadiaplaytime/static/total_time.png')
 
 
 if __name__ == '__main__':

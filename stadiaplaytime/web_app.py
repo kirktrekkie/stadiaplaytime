@@ -2,6 +2,7 @@ import os
 from flask import Flask
 from flask import request, render_template
 from stadiaplaytime.stadia_playtime import list_game_time
+from stadiaplaytime.plot_graphs import make_graph_total_time
 app = Flask(__name__)
 
 FILE_PATH = 'uploads/uploaded_file.json'
@@ -24,6 +25,7 @@ def upload_file():
 
         game_list = list_game_time(FILE_PATH)
         os.remove(FILE_PATH)
+        make_graph_total_time(game_list)
         return render_template("result_table.html", result=game_list)
 
     return render_template("upload_file.html")
