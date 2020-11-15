@@ -2,8 +2,8 @@ import json
 from time import gmtime, strftime
 
 
-def list_game_time():
-    with open('uploads\\uploaded_file.json') as game_history_file:
+def list_game_time(uploaded_file):
+    with open(uploaded_file) as game_history_file:
         data = json.load(game_history_file)
         games = data.get('gamerHistory').get('applications')
 
