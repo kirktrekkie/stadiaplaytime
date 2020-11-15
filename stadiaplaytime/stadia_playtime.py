@@ -24,21 +24,20 @@ def list_game_time():
             # time = strftime("%w days %H:%M:%S", gmtime(time_seconds))
             avg_time = strftime("%H:%M:%S", gmtime(avg_time_seconds))
 
-            game_string = (f'{name}: Total: {calc_hours(time_seconds)}, Average: {avg_time}')
+            #game_string = (f'{name}: Total: {calc_hours(time_seconds)}, Average: {avg_time}')
             game_dict = {"name" : name,
                          "total" : calc_hours(time_seconds),
                          "average" : avg_time}
 
             new_list.append(game_dict)
 
-        total = (f'Total: {calc_hours(total_time)}')
+        #total = (f'Total: {calc_hours(total_time)}')
         total = {"name" : "Total",
                  "total" : calc_hours(total_time),
                  "average" : ""}
         new_list.append(total)
 
     return new_list
-
 
 
 def convert_string_to_int(games):
