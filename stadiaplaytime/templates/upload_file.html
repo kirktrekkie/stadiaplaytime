@@ -2,15 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Upload file</title>
+    <title>Stadia play time</title>
 </head>
 <body>
-<h1>Welcome to the calculator of Stadia playtime!</h1>
-<p>Please upload your GAMER_HISTORY.json file</p>
+<h1>Welcome to the calculator of Stadia play time!</h1>
+<p>Download your Stadia data from <a href="https://takeout.google.com">Google Takeout</a> (a tip is to only select Stadia, so that you get it faster).</p>
+<p>In the zip file, go to Takeout\Stadia\GAMING\GAME_DATA and unzip the GAMER_HISTORY.json file.</p>
+<p>Then upload your GAMER_HISTORY.json file using below form.</p>
 <form method="post" enctype="multipart/form-data">
   <input type="file" id="myFile" name="filename"/>
   <input type="submit"/>
 </form>
 <p>This page is not associated with Google in any way.</p>
+<p>Please note that your uploaded data can be saved for some time on the server.</p>
 </body>
 </html>
