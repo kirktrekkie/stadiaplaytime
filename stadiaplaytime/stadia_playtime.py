@@ -25,16 +25,18 @@ def list_game_time(uploaded_file):
             avg_time = strftime("%H:%M:%S", gmtime(avg_time_seconds))
 
             #game_string = (f'{name}: Total: {calc_hours(time_seconds)}, Average: {avg_time}')
-            game_dict = {"name" : name,
-                         "total" : calc_hours(time_seconds),
-                         "average" : avg_time}
+            game_dict = {"name": name,
+                         "total": calc_hours(time_seconds),
+                         "average": avg_time,
+                         "total_seconds": time_seconds}
 
             new_list.append(game_dict)
 
         #total = (f'Total: {calc_hours(total_time)}')
         total = {"name" : "Total",
                  "total" : calc_hours(total_time),
-                 "average" : ""}
+                 "average" : "",
+                 "total_seconds": total_time}
         new_list.append(total)
 
     return new_list
