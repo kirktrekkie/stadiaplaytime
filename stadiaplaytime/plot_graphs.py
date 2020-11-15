@@ -4,20 +4,48 @@ from matplotlib import pyplot as plt
 def make_graph_total_time(games_list):
     x = []
     y = []
+    pie_names = []
+    pie_times = []
+    total_time = 1
+    rest = 0
 
     for game in games_list:
-        x.append(game['name'])
-        y.append(game['total_seconds']/3600)
+        if game['name'] == 'Total':
+            total_time = game['total_seconds']
 
-    plt.figure(figsize=(15,10))
+    for game in games_list:
+        if game['name'] != 'Total':
+            x.append(game['name'])
+            y.append(game['total_seconds']/3600)
+            if game['total_seconds'] / total_time > 0.01:
+                pie_names.append(game['name'])
+                pie_times.append(game['total_seconds']/3600)
+            else:
+                rest += game['total_seconds']/3600
+    pie_names.append("Rest")
+    pie_times.append(rest)
+
+    make_bar_graph(x, y)
+    make_pie_graph(pie_times, pie_names)
+
+
+def make_bar_graph(x, y):
+    width = 10 + len(x) / 5
+    plt.figure(figsize=(width,10))
     plt.bar(x ,y)
     plt.gcf().subplots_adjust(bottom=0.30)
-    plt.xticks(rotation=45)
+    plt.xticks(rotation=90)
     plt.ylabel('Hours')
     plt.xlabel('Games')
     plt.title('Total time per game')
 
     plt.savefig('stadiaplaytime/static/total_time.png')
+
+
+def make_pie_graph(times, game_names):
+    plt.figure(figsize=(12,12))
+    plt.pie(times, labels=game_names, autopct='%.2f%%')
+    plt.savefig('stadiaplaytime/static/pie_graph.png')
 
 
 if __name__ == '__main__':

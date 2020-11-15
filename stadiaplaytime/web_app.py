@@ -6,7 +6,8 @@ from stadiaplaytime.plot_graphs import make_graph_total_time
 app = Flask(__name__)
 
 FILE_PATH = 'uploads/uploaded_file.json'
-
+BAR_GRAPH_PATH = 'stadiaplaytime/static/total_time.png'
+PIE_GRAPH_PATH = 'stadiaplaytime/static/pie_graph.png'
 
 @app.route('/hello')
 def hello_world():
@@ -24,12 +25,21 @@ def upload_file():
         f.save(FILE_PATH)
 
         game_list = list_game_time(FILE_PATH)
-        os.remove(FILE_PATH)
+        remove_file_with_try(FILE_PATH)
+
+        remove_file_with_try(BAR_GRAPH_PATH)
+        remove_file_with_try(PIE_GRAPH_PATH)
         make_graph_total_time(game_list)
         return render_template("result_table.html", result=game_list)
 
     return render_template("upload_file.html")
 
+
+def remove_file_with_try(path):
+    try:
+        os.remove(path)
+    except FileNotFoundError:
+        pass
 
 if __name__ == '__main__':
    app.run(debug=True, host='localhost')
