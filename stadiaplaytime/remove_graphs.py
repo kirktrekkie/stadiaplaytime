@@ -1,10 +1,10 @@
 import os
 import time
 
-PATH = 'static'
+PATH = 'stadiaplaytime/static'
 
 
-def remove_old_graps(time_limit=1700):
+def remove_old_graphs(time_limit=1700):
     files = [f for f in os.listdir(PATH) if ".png" in f]
     current_time = time.time()
 
@@ -15,4 +15,4 @@ def remove_old_graps(time_limit=1700):
 
 
 if __name__ == '__main__':
-    remove_old_graps()
+    remove_old_graphs()

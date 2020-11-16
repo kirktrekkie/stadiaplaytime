@@ -21,7 +21,9 @@
             </tr>
          {% endfor %}
       </table>
-      <img src="{{url_for('static', filename='total_time.png')}}" align="middle" />
-      <img src="{{url_for('static', filename='pie_graph.png')}}" align="middle" />
+      {% set total_time = url_for('static', filename="total_time_{}.png".format(file_number)) %}
+      {% set pie_graph = url_for('static', filename="pie_graph_{}.png".format(file_number)) %}
+      <img src="{{total_time}}" align="middle" />
+      <img src="{{pie_graph}}" align="middle" />
 </body>
 </html>

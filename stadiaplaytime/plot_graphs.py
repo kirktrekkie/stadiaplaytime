@@ -1,3 +1,4 @@
+from random import randint
 from matplotlib import pyplot as plt
 
 
@@ -25,11 +26,15 @@ def make_graph_total_time(games_list):
     pie_names.append("Rest")
     pie_times.append(rest)
 
-    make_bar_graph(x, y)
-    make_pie_graph(pie_times, pie_names)
+    file_number = randint(10000, 99999)
+
+    make_bar_graph(x, y, file_number)
+    make_pie_graph(pie_times, pie_names, file_number)
+
+    return file_number
 
 
-def make_bar_graph(x, y):
+def make_bar_graph(x, y, file_number):
     width = 10 + len(x) / 5
     plt.figure(figsize=(width,10))
     plt.bar(x ,y)
@@ -39,13 +44,13 @@ def make_bar_graph(x, y):
     plt.xlabel('Games')
     plt.title('Total time per game')
 
-    plt.savefig('stadiaplaytime/static/total_time.png')
+    plt.savefig(f'stadiaplaytime/static/total_time_{file_number}.png')
 
 
-def make_pie_graph(times, game_names):
+def make_pie_graph(times, game_names, file_number):
     plt.figure(figsize=(12,12))
     plt.pie(times, labels=game_names, autopct='%.2f%%')
-    plt.savefig('stadiaplaytime/static/pie_graph.png')
+    plt.savefig(f'stadiaplaytime/static/pie_graph_{file_number}.png')
 
 
 if __name__ == '__main__':
