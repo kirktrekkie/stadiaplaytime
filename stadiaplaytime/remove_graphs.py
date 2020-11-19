@@ -1,7 +1,10 @@
 import os
 import time
 
-PATH = 'stadiaplaytime/static'
+if os.getcwd() == '/home/stadiaplaytime/stadiaplaytime/stadiaplaytime':
+    PATH = 'static'
+else:
+    PATH = 'stadiaplaytime/static'
 
 
 def remove_old_graphs(time_limit=1700):
