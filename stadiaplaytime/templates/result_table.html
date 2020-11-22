@@ -7,9 +7,10 @@
     <title>Stadia play time</title>
 </head>
 <body>
- <table class="table table-striped">
-     <h1>Your Stadia play time!</h1>
-     <p>The only way to share this data is to manually copy it.</p>
+<div class="container">
+    <h1>Your Stadia play time!</h1>
+    <div class="alert alert-info" role="alert">The only way to share this data is to manually copy it.</div>
+    <table class="table table-striped">
             <tr class="thead-dark">
                 <th>Game</th>
                 <th>Total time</th>
@@ -23,10 +24,17 @@
             </tr>
          {% endfor %}
       </table>
+</div>
+<div class="container-fluid">
       {% set total_time = url_for('static', filename="total_time_{}.png".format(file_number)) %}
       {% set pie_graph = url_for('static', filename="pie_graph_{}.png".format(file_number)) %}
+    <a href="{{total_time}}">
       <img src="{{total_time}}" class="img-fluid" align="middle" />
+    </a>
+    <a href="{{pie_graph}}">
       <img src="{{pie_graph}}" class="img-fluid" align="middle" />
+    </a>
+</div>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 </body>
