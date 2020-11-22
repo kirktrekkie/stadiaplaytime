@@ -2,13 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <title>Stadia play time</title>
 </head>
 <body>
- <table border = 1>
+ <table class="table table-striped">
      <h1>Your Stadia play time!</h1>
      <p>The only way to share this data is to manually copy it.</p>
-            <tr>
+            <tr class="thead-dark">
                 <th>Game</th>
                 <th>Total time</th>
                 <th>Average session</th>
@@ -23,7 +25,9 @@
       </table>
       {% set total_time = url_for('static', filename="total_time_{}.png".format(file_number)) %}
       {% set pie_graph = url_for('static', filename="pie_graph_{}.png".format(file_number)) %}
-      <img src="{{total_time}}" align="middle" />
-      <img src="{{pie_graph}}" align="middle" />
+      <img src="{{total_time}}" class="img-fluid" align="middle" />
+      <img src="{{pie_graph}}" class="img-fluid" align="middle" />
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 </body>
 </html>
