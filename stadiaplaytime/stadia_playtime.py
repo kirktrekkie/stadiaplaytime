@@ -18,6 +18,7 @@ def list_game_time(uploaded_file):
             name = game['applicationName']
             time_seconds = game['totalTimePlayed']
             avg_time_seconds = game['averageTimePlayedPerSession']
+            last_played_date = game['mostRecentPlayTime']
 
             total_time += time_seconds
 
@@ -28,7 +29,8 @@ def list_game_time(uploaded_file):
             game_dict = {"name": name,
                          "total": calc_hours(time_seconds),
                          "average": avg_time,
-                         "total_seconds": time_seconds}
+                         "total_seconds": time_seconds,
+                         "last_played_date": last_played_date}
 
             new_list.append(game_dict)
 

@@ -41,5 +41,6 @@ def remove_file_with_try(path):
     except FileNotFoundError:
         pass
 
+
 if __name__ == '__main__':
    app.run(debug=True, host='localhost')

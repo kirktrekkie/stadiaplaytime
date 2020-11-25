@@ -28,11 +28,18 @@
 <div class="container-fluid">
       {% set total_time = url_for('static', filename="total_time_{}.png".format(file_number)) %}
       {% set pie_graph = url_for('static', filename="pie_graph_{}.png".format(file_number)) %}
+      {% set time_line = url_for('static', filename="time_line_{}.png".format(file_number)) %}
+    <h2>Total play time</h2>
     <a href="{{total_time}}">
       <img src="{{total_time}}" class="img-fluid" align="middle" />
     </a>
+    <h2>Share of play time</h2>
     <a href="{{pie_graph}}">
       <img src="{{pie_graph}}" class="img-fluid" align="middle" />
+    </a>
+    <h2>Latest play date</h2>
+    <a href="{{time_line}}">
+      <img src="{{time_line}}" class="img-fluid" align="middle" />
     </a>
 </div>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

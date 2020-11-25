@@ -1,10 +1,14 @@
 from random import randint
 from matplotlib import pyplot as plt
+from datetime import datetime
+import numpy as np
+import matplotlib.dates as mdates
 
 
 def make_graph_total_time(games_list):
-    x = []
-    y = []
+    long_name = []
+    playtime_hours = []
+    latest_play = []
     pie_names = []
     pie_times = []
     total_time = 1
@@ -16,8 +20,9 @@ def make_graph_total_time(games_list):
 
     for game in games_list:
         if game['name'] != 'Total':
-            x.append(shorten_name_if_needed(game['name']))
-            y.append(game['total_seconds']/3600)
+            long_name.append(shorten_name_if_needed(game['name']))
+            playtime_hours.append(game['total_seconds']/3600)
+            latest_play.append(game['last_played_date'])
             if game['total_seconds'] / total_time > 0.01:
                 pie_names.append(shorten_name_if_needed(game['name'], 28))
                 pie_times.append(game['total_seconds']/3600)
@@ -28,8 +33,9 @@ def make_graph_total_time(games_list):
 
     file_number = randint(10000, 99999)
 
-    make_bar_graph(x, y, file_number)
+    make_bar_graph(long_name, playtime_hours, file_number)
     make_pie_graph(pie_times, pie_names, file_number)
+    make_timeline(latest_play, long_name, file_number)
 
     return file_number
 
@@ -51,6 +57,45 @@ def make_pie_graph(times, game_names, file_number):
     plt.figure(figsize=(12,12))
     plt.pie(times, labels=game_names, autopct='%.2f%%')
     plt.savefig(f'stadiaplaytime/static/pie_graph_{file_number}.png')
+
+
+def make_timeline(dates, game_names, file_number):
+    dates = [datetime.strptime(d.split('T')[0], "%Y-%m-%d") for d in dates]
+    level_values = [i for i in range(-10,10)]
+    level_values.remove(0)
+    levels = np.tile(level_values,
+                     int(np.ceil(len(dates) / 6)))[:len(dates)]
+
+    fig, ax = plt.subplots(figsize=(10, 6), constrained_layout=True)
+    ax.set(title="Latest date you played a game")
+
+    markerline, stemline, baseline = ax.stem(dates, levels,
+                                             linefmt="C3-", basefmt="k-",
+                                             use_line_collection=True)
+
+    plt.setp(markerline, mec="k", mfc="w", zorder=3)
+
+    # Shift the markers to the baseline by replacing the y-data by zeros.
+    markerline.set_ydata(np.zeros(len(dates)))
+
+    # annotate lines
+    vert = np.array(['top', 'bottom'])[(levels > 0).astype(int)]
+    for d, l, r, va in zip(dates, levels, game_names, vert):
+        ax.annotate(r, xy=(d, l), xytext=(-3, np.sign(l) * 3),
+                    textcoords="offset points", va=va, ha="right")
+
+    # format xaxis with 4 month intervals
+    ax.get_xaxis().set_major_locator(mdates.MonthLocator(interval=4))
+    ax.get_xaxis().set_major_formatter(mdates.DateFormatter("%b %Y"))
+    plt.setp(ax.get_xticklabels(), rotation=30, ha="right")
+
+    # remove y axis and spines
+    ax.get_yaxis().set_visible(False)
+    for spine in ["left", "top", "right"]:
+        ax.spines[spine].set_visible(False)
+
+    ax.margins(y=0.1)
+    plt.savefig(f'stadiaplaytime/static/time_line_{file_number}.png')
 
 
 def shorten_name_if_needed(name, max_len=33):
