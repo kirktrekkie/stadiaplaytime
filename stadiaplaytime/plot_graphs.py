@@ -61,13 +61,14 @@ def make_pie_graph(times, game_names, file_number):
 
 def make_timeline(dates, game_names, file_number):
     dates = [datetime.strptime(d.split('T')[0], "%Y-%m-%d") for d in dates]
-    level_values = [i for i in range(-10,10)]
+    level_range = int(len(game_names) / 2)
+    level_values = [i for i in range(level_range * -1,level_range)]
     level_values.remove(0)
     levels = np.tile(level_values,
                      int(np.ceil(len(dates) / 6)))[:len(dates)]
 
-    fig, ax = plt.subplots(figsize=(10, 6), constrained_layout=True)
-    ax.set(title="Latest date you played a game")
+    fig, ax = plt.subplots(figsize=(12, 10), constrained_layout=True)
+    ax.set(title="Latest time you played a game")
 
     markerline, stemline, baseline = ax.stem(dates, levels,
                                              linefmt="C3-", basefmt="k-",
@@ -85,7 +86,7 @@ def make_timeline(dates, game_names, file_number):
                     textcoords="offset points", va=va, ha="right")
 
     # format xaxis with 4 month intervals
-    ax.get_xaxis().set_major_locator(mdates.MonthLocator(interval=4))
+    ax.get_xaxis().set_major_locator(mdates.MonthLocator(interval=1))
     ax.get_xaxis().set_major_formatter(mdates.DateFormatter("%b %Y"))
     plt.setp(ax.get_xticklabels(), rotation=30, ha="right")
 
@@ -103,6 +104,7 @@ def shorten_name_if_needed(name, max_len=33):
         return name
     else:
         return '{}...'.format(name[0:max_len - 3])
+
 
 if __name__ == '__main__':
     games_list = [{'name': 'Risk of Rain 2', 'total': '25:02:38', 'average': '00:57:47', 'total_seconds': 90158}, {'name': 'Farming Simulator 19', 'total': '2:19:22', 'average': '00:34:50', 'total_seconds': 8362}, {'name': 'Thumper', 'total': '0:59:29', 'average': '00:29:44', 'total_seconds': 3569}, {'name': 'Get Packed', 'total': '0:20:07', 'average': '00:20:07', 'total_seconds': 1207}, {'name': 'Stacks On Stacks (On Stacks)', 'total': '0:07:30', 'average': '00:07:30', 'total_seconds': 450}]
