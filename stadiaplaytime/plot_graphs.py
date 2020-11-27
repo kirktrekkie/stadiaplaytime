@@ -22,10 +22,10 @@ def make_graph_total_time(games_list):
         if game['name'] != 'Total':
             long_name.append(shorten_name_if_needed(game['name']))
             playtime_hours.append(game['total_seconds']/3600)
-            latest_play.append(game['last_played_date'])
             if game['total_seconds'] / total_time > 0.01:
                 pie_names.append(shorten_name_if_needed(game['name'], 28))
                 pie_times.append(game['total_seconds']/3600)
+                latest_play.append(game['last_played_date'])
             else:
                 rest += game['total_seconds']/3600
     pie_names.append("Rest")
@@ -35,7 +35,7 @@ def make_graph_total_time(games_list):
 
     make_bar_graph(long_name, playtime_hours, file_number)
     make_pie_graph(pie_times, pie_names, file_number)
-    make_timeline(latest_play, long_name, file_number)
+    make_timeline(latest_play, pie_names, file_number)
 
     return file_number
 
@@ -68,7 +68,7 @@ def make_timeline(dates, game_names, file_number):
                      int(np.ceil(len(dates) / 6)))[:len(dates)]
 
     fig, ax = plt.subplots(figsize=(12, 10), constrained_layout=True)
-    ax.set(title="Latest time you played a game")
+    ax.set(title="Latest time you played your most popular games")
 
     markerline, stemline, baseline = ax.stem(dates, levels,
                                              linefmt="C3-", basefmt="k-",
