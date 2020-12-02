@@ -25,8 +25,12 @@ def upload_file():
         f = request.files['filename']
         f.save(FILE_PATH)
 
-        game_list = list_game_time(FILE_PATH)
-        remove_file_with_try(FILE_PATH)
+        try:
+            game_list = list_game_time(FILE_PATH)
+        except:
+            return render_template("error.html")
+        finally:
+            remove_file_with_try(FILE_PATH)
 
         remove_old_graphs()
         file_number = make_graph_total_time(game_list)
